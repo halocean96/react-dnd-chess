@@ -1,13 +1,15 @@
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import Knight from "./Knight";
+import Piece from "./Piece";
 import Square from "./Square";
+import useChessStore from "../stores/chess";
 
-function RenderSquare(i: number, [knightX, knightY]: [number, number]) {
+function RenderSquare(i: number) {
+  const getTargetPiece = useChessStore((v) => v.getTargetPiece);
   const x = i % 8;
   const y = Math.floor(i / 8);
-  const isKnightHere = x === knightX && y === knightY;
-  const piece = isKnightHere ? <Knight /> : null;
+  const type = getTargetPiece(x, y);
+  const piece = type ? <Piece type={type} /> : null;
   return (
     <div key={i} style={{ width: "12.5%", height: "12.5%" }}>
       <Square x={x} y={y}>
@@ -17,11 +19,7 @@ function RenderSquare(i: number, [knightX, knightY]: [number, number]) {
   );
 }
 
-type BoardProps = {
-  knightPosition: [number, number];
-};
-
-function Board({ knightPosition }: BoardProps) {
+function Board() {
   return (
     <DndProvider backend={HTML5Backend}>
       <div
@@ -33,9 +31,7 @@ function Board({ knightPosition }: BoardProps) {
           flexWrap: "wrap",
         }}
       >
-        {new Array(8 * 8)
-          .fill(null)
-          .map((_, i) => RenderSquare(i, knightPosition))}
+        {new Array(8 * 8).fill(null).map((_, i) => RenderSquare(i))}
       </div>
     </DndProvider>
   );

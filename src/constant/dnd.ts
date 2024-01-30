@@ -1,3 +1,3 @@
 export const ItemTypes = {
-  KNIGHT: "knight",
+  CHESS_PIECE: "CHESS_PIECE",
 };

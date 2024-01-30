@@ -1,24 +1,57 @@
 import { create } from "zustand";
 
-type ChessStore = {
-  knightPosition: [number, number];
-  moveKnight: (toX: number, toY: number) => void;
-  canMoveKnight: (toX: number, toY: number) => boolean;
+export enum ChessPiece {
+  knight = "knight",
+  Rook = "Root",
+}
+
+export type ChessPiecePosition = {
+  type: ChessPiece;
+  x: number;
+  y: number;
 };
 
-const useChessStore = create<ChessStore>((set, get) => ({
-  knightPosition: [0, 0],
-  moveKnight: (toX: number, toY: number) => {
-    set({ knightPosition: [toX, toY] });
+type ChessStore = {
+  chessPiecePosition: ChessPiecePosition[];
+  movePiece: (toX: number, toY: number, type: ChessPiece) => void;
+  canMovePiece: (toX: number, toY: number, type: ChessPiece) => boolean;
+  getTargetPiece: (x: number, y: number) => ChessPiece | null;
+};
+
+const initialChessPiecePosition: ChessPiecePosition[] = [
+  {
+    type: ChessPiece.knight,
+    x: 0,
+    y: 1,
   },
-  canMoveKnight: (toX, toY) => {
-    const currentKightPosition = get().knightPosition;
-    const dx = toX - currentKightPosition[0];
-    const dy = toY - currentKightPosition[1];
-    return (
-      (Math.abs(dx) === 2 && Math.abs(dy) === 1) ||
-      (Math.abs(dx) === 1 && Math.abs(dy) === 2)
+  {
+    type: ChessPiece.knight,
+    x: 3,
+    y: 3,
+  },
+  {
+    type: ChessPiece.Rook,
+    x: 5,
+    y: 3,
+  },
+  {
+    type: ChessPiece.Rook,
+    x: 1,
+    y: 4,
+  },
+];
+
+const useChessStore = create<ChessStore>((set, get) => ({
+  chessPiecePosition: initialChessPiecePosition,
+  movePiece: (toX, toY, type) => {},
+  canMovePiece: (toX, toY, type) => {
+    return true;
+  },
+  getTargetPiece: (x, y) => {
+    const targetPiece = get().chessPiecePosition.find(
+      (piece) => piece.x === x && piece.y === y
     );
+    return targetPiece ? targetPiece.type : null;
   },
 }));
 
