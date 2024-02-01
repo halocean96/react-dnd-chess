@@ -10,6 +10,7 @@ type PieceProps = {
 const pieceCharMap = {
   [ChessPiece.knight]: "♘",
   [ChessPiece.Rook]: "♖",
+  [ChessPiece.King]: "♔",
 };
 
 function Piece({ type, id }: PieceProps) {

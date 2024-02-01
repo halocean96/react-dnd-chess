@@ -1,6 +1,7 @@
 export enum ChessPiece {
   knight = "knight",
   Rook = "rook",
+  King = "king"
 }
 
 export type ChessPiecePosition = {
@@ -57,5 +58,17 @@ export const initialChessPiecePosition: ChessPiecePosition[] = [
     type: ChessPiece.Rook,
     x: 1,
     y: 4,
+  },
+  {
+    id: "5",
+    type: ChessPiece.King,
+    x: 6,
+    y: 4,
+  },
+  {
+    id: "6",
+    type: ChessPiece.King,
+    x: 6,
+    y: 1,
   },
 ];
