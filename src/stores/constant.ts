@@ -1,6 +1,6 @@
 export enum ChessPiece {
   knight = "knight",
-  Rook = "Root",
+  Rook = "rook",
 }
 
 export type ChessPiecePosition = {

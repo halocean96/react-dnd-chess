@@ -12,7 +12,12 @@ const knightCanMove: canMoveFn = (currentPosition, toX, toY) => {
 
 const rookCanMove: canMoveFn = (currentPosition, toX, toY) => {
   const { x, y } = currentPosition;
-  return x === toX || y === toY;
+  const dx = toX - x;
+  const dy = toY - y;
+  return (
+    (dx === 0 && dy !== 0) ||
+    (dx !== 0 && dy === 0)
+  );
 };
 
 const canMoveByPiece = {

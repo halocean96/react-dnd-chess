@@ -12,7 +12,6 @@ const pieceCharMap = {
   [ChessPiece.Rook]: "♖",
 };
 
-// FIXME: 룩 드래깅이 되지않음
 function Piece({ type, id }: PieceProps) {
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: ItemTypes.CHESS_PIECE,

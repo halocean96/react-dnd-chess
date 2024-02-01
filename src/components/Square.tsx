@@ -56,9 +56,9 @@ function Square({ x, y, children }: SquareProps) {
       }}
     >
       {children}
-      {isOver && !canDrop && <Overlay color="red" />}
-      {!isOver && canDrop && <Overlay color="yellow" />}
-      {isOver && canDrop && <Overlay color="green" />}
+      {isOver && !canDrop ? <Overlay color="red" /> : null}
+      {!isOver && canDrop ? <Overlay color="yellow" /> : null}
+      {isOver && canDrop ? <Overlay color="green" /> : null}
     </div>
   );
 }
