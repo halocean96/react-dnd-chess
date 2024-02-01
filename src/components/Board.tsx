@@ -5,11 +5,13 @@ import Square from "./Square";
 import useChessStore from "../stores/chess";
 
 function RenderSquare(i: number) {
-  const getTargetPiece = useChessStore((v) => v.getTargetPiece);
+  const { getTargetPiece } = useChessStore();
   const x = i % 8;
   const y = Math.floor(i / 8);
-  const type = getTargetPiece(x, y);
-  const piece = type ? <Piece type={type} /> : null;
+  const targetPiece = getTargetPiece(x, y);
+  const piece = targetPiece ? (
+    <Piece type={targetPiece.type} id={targetPiece.id} />
+  ) : null;
   return (
     <div key={i} style={{ width: "12.5%", height: "12.5%" }}>
       <Square x={x} y={y}>

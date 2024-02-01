@@ -1,8 +1,9 @@
 import { ItemTypes } from "../constant/dnd";
 import { useDrag } from "react-dnd";
-import { ChessPiece } from "../stores/chess";
+import { ChessPiece } from "../stores/constant";
 
 type PieceProps = {
+  id: string;
   type: ChessPiece;
 };
 
@@ -11,9 +12,11 @@ const pieceCharMap = {
   [ChessPiece.Rook]: "♖",
 };
 
-function Piece({ type }: PieceProps) {
+// FIXME: 룩 드래깅이 되지않음
+function Piece({ type, id }: PieceProps) {
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: ItemTypes.CHESS_PIECE,
+    item: { type, id },
     collect: (monitor) => {
       return {
         isDragging: !!monitor.isDragging(),
@@ -25,7 +28,7 @@ function Piece({ type }: PieceProps) {
       <span
         ref={dragRef}
         style={{
-          fontSize: "60px",
+          fontSize: "44px",
           opacity: isDragging ? 0.5 : 1,
           background: "none",
           cursor: "move",
